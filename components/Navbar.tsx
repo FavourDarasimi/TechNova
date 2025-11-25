@@ -1,7 +1,7 @@
 const Navbar = () => {
   return (
     <nav className="flex sticky justify-between items-center p-5">
-      <h1 className="tracking-widest text-2xl font-semibold">
+      <h1 className="tracking-widest text-3xl font-bold ">
         Tech<span className="text-blue-600">Nova</span>
       </h1>
       <ul className="flex gap-5">
