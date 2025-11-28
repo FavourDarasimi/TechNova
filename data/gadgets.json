@@ -1,0 +1,307 @@
+[
+  {
+    "id": 1,
+    "name": "iPhone 14 Pro",
+    "rating": 4.8,
+    "price": 999,
+    "category": "Smartphone",
+    "best_selling": true,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 2,
+    "name": "Samsung Galaxy S23",
+    "rating": 4.7,
+    "price": 899,
+    "category": "Smartphone",
+    "best_selling": true,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 3,
+    "name": "Google Pixel 8",
+    "rating": 4.6,
+    "price": 799,
+    "category": "Smartphone",
+    "best_selling": false,
+    "new": true,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 4,
+    "name": "iPhone 13",
+    "rating": 4.5,
+    "price": 699,
+    "category": "Smartphone",
+    "best_selling": false,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 5,
+    "name": "Samsung A54",
+    "rating": 4.3,
+    "price": 399,
+    "category": "Smartphone",
+    "best_selling": true,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+
+  {
+    "id": 6,
+    "name": "iPad Air 5",
+    "rating": 4.6,
+    "price": 599,
+    "category": "Tablet",
+    "best_selling": true,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 7,
+    "name": "iPad Pro 12.9",
+    "rating": 4.9,
+    "price": 1099,
+    "category": "Tablet",
+    "best_selling": true,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 8,
+    "name": "Samsung Galaxy Tab S8",
+    "rating": 4.7,
+    "price": 849,
+    "category": "Tablet",
+    "best_selling": false,
+    "new": true,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 9,
+    "name": "Amazon Fire HD 10",
+    "rating": 4.2,
+    "price": 149,
+    "category": "Tablet",
+    "best_selling": false,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 10,
+    "name": "Lenovo Tab P11",
+    "rating": 4.1,
+    "price": 199,
+    "category": "Tablet",
+    "best_selling": false,
+    "new": true,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+
+  {
+    "id": 11,
+    "name": "MacBook Air M2",
+    "rating": 4.9,
+    "price": 1199,
+    "category": "Laptop",
+    "best_selling": true,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 12,
+    "name": "MacBook Pro 14",
+    "rating": 5.0,
+    "price": 1999,
+    "category": "Laptop",
+    "best_selling": true,
+    "new": true,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 13,
+    "name": "Dell XPS 13",
+    "rating": 4.7,
+    "price": 1299,
+    "category": "Laptop",
+    "best_selling": false,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 14,
+    "name": "HP Spectre x360",
+    "rating": 4.6,
+    "price": 1399,
+    "category": "Laptop",
+    "best_selling": false,
+    "new": true,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 15,
+    "name": "Lenovo ThinkPad X1 Carbon",
+    "rating": 4.8,
+    "price": 1499,
+    "category": "Laptop",
+    "best_selling": true,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+
+  {
+    "id": 16,
+    "name": "Apple Watch Series 9",
+    "rating": 4.9,
+    "price": 399,
+    "category": "Smartwatch",
+    "best_selling": true,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 17,
+    "name": "Samsung Galaxy Watch 6",
+    "rating": 4.7,
+    "price": 299,
+    "category": "Smartwatch",
+    "best_selling": false,
+    "new": true,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 18,
+    "name": "Fitbit Versa 4",
+    "rating": 4.3,
+    "price": 199,
+    "category": "Smartwatch",
+    "best_selling": false,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 19,
+    "name": "Amazfit GTR 4",
+    "rating": 4.5,
+    "price": 179,
+    "category": "Smartwatch",
+    "best_selling": false,
+    "new": true,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 20,
+    "name": "Huawei Watch GT 3",
+    "rating": 4.4,
+    "price": 249,
+    "category": "Smartwatch",
+    "best_selling": false,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+
+  {
+    "id": 21,
+    "name": "AirPods Pro 2",
+    "rating": 4.7,
+    "price": 249,
+    "category": "Audio",
+    "best_selling": true,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 22,
+    "name": "Sony WH-1000XM5",
+    "rating": 4.9,
+    "price": 349,
+    "category": "Audio",
+    "best_selling": true,
+    "new": true,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 23,
+    "name": "Samsung Galaxy Buds 2 Pro",
+    "rating": 4.6,
+    "price": 229,
+    "category": "Audio",
+    "best_selling": false,
+    "new": true,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 24,
+    "name": "JBL Charge 5",
+    "rating": 4.5,
+    "price": 149,
+    "category": "Audio",
+    "best_selling": false,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 25,
+    "name": "Beats Studio 3",
+    "rating": 4.4,
+    "price": 349,
+    "category": "Audio",
+    "best_selling": false,
+    "new": true,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+
+  {
+    "id": 26,
+    "name": "GoPro Hero 12",
+    "rating": 4.8,
+    "price": 499,
+    "category": "Camera",
+    "best_selling": true,
+    "new": true,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 27,
+    "name": "Sony A7 IV",
+    "rating": 4.9,
+    "price": 2499,
+    "category": "Camera",
+    "best_selling": true,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 28,
+    "name": "Canon EOS R6",
+    "rating": 4.7,
+    "price": 1999,
+    "category": "Camera",
+    "best_selling": false,
+    "new": false,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 29,
+    "name": "DJI Mini 4 Pro",
+    "rating": 4.8,
+    "price": 999,
+    "category": "Drone",
+    "best_selling": true,
+    "new": true,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  },
+  {
+    "id": 30,
+    "name": "DJI Osmo Pocket 3",
+    "rating": 4.6,
+    "price": 599,
+    "category": "Camera",
+    "best_selling": false,
+    "new": true,
+    "image": "/gadgets/Iphone_14_pro.webp"
+  }
+]

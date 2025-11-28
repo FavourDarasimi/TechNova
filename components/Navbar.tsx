@@ -1,22 +1,121 @@
-const Navbar = () => {
+"use client"; // Required for handling the Mobile Menu state
+
+import Link from "next/link";
+import { useState } from "react";
+import {
+  ShoppingCartIcon,
+  MagnifyingGlassIcon,
+  UserIcon,
+  Bars3Icon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <nav className="flex sticky justify-between items-center p-5 text-white">
-      <h1 className="tracking-widest text-3xl font-bold ">
-        Tech<span className="text-blue-600">Nova</span>
-      </h1>
-      <ul className="flex gap-5">
-        <li className="text-[18px]  border-transparent border-b-2 hover:border-blue-600 cursor-pointer transition duration-300 ease-in-out">
-          Home
-        </li>
-        <li className="text-[18px]  border-transparent border-b-2 hover:border-blue-600 cursor-pointer transition duration-300 ease-in-out">
-          Products
-        </li>
-        <li className="text-[18px]  border-transparent border-b-2 hover:border-blue-600 cursor-pointer transition duration-300 ease-in-out">
-          Contact
-        </li>
-      </ul>
+    <nav className="sticky top-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-[#2A2F36]">
+      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          {/* 1. LOGO */}
+          <div className="shrink-0 cursor-pointer">
+            <Link
+              href="/"
+              className="text-3xl font-bold tracking-tighter text-white"
+            >
+              Tech<span className="text-[#3055D4]">Nova</span>
+            </Link>
+          </div>
+
+          <div className="hidden md:flex flex-1 mx-10 max-w-lg">
+            <div className="relative w-full text-gray-400 focus-within:text-[#3055D4]">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <MagnifyingGlassIcon className="h-5 w-5" />
+              </div>
+              <input
+                type="text"
+                className="block w-full bg-[#1a1d21] border border-[#2A2F36] rounded-full py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:border-[#3055D4] focus:ring-1 focus:ring-[#3055D4] text-white transition-all"
+                placeholder="Search gadgets (e.g. Headphones, PS5)..."
+              />
+            </div>
+          </div>
+
+          <div className="hidden md:flex items-center gap-6">
+            <Link
+              href="/shop"
+              className="text-gray-300 hover:text-white text-sm font-medium transition"
+            >
+              Shop
+            </Link>
+            <Link
+              href="/categories"
+              className="text-gray-300 hover:text-white text-sm font-medium transition"
+            >
+              Categories
+            </Link>
+            <div className="h-6 w-px bg-[#2A2F36]"></div> {/* Divider */}
+            <div className="flex items-center gap-4">
+              {/* Cart Icon with Badge */}
+              <button className="group relative text-gray-300 hover:text-white transition">
+                <ShoppingCartIcon className="h-6 w-6" />
+                <span className="absolute -top-2 -right-2 bg-[#3055D4] text-white text-[10px] font-bold h-5 w-5 flex items-center justify-center rounded-full border-2 border-black group-hover:scale-110 transition-transform">
+                  2
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-300 hover:text-white p-2"
+            >
+              {isOpen ? (
+                <XMarkIcon className="h-6 w-6" />
+              ) : (
+                <Bars3Icon className="h-6 w-6" />
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {isOpen && (
+        <div className="md:hidden bg-[#0a0a0a] border-b border-[#2A2F36]">
+          <div className="px-4 pt-4 pb-6 space-y-4">
+            <div className="relative text-gray-400">
+              <MagnifyingGlassIcon className="absolute left-3 top-2.5 h-5 w-5" />
+              <input
+                type="text"
+                placeholder="Search..."
+                className="w-full bg-[#1a1d21] rounded-lg py-2 pl-10 text-white focus:outline-none border border-[#2A2F36]"
+              />
+            </div>
+
+            <Link
+              href="/shop"
+              className="block text-gray-300 hover:text-white text-base font-medium"
+            >
+              Shop
+            </Link>
+            <Link
+              href="/categories"
+              className="block text-gray-300 hover:text-white text-base font-medium"
+            >
+              Categories
+            </Link>
+            <Link
+              href="/account"
+              className="block text-gray-300 hover:text-white text-base font-medium"
+            >
+              My Account
+            </Link>
+            <Link href="/cart" className="block text-[#3055D4] font-medium">
+              View Cart (2)
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
-};
-
-export default Navbar;
+}
