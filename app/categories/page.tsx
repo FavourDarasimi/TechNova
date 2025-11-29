@@ -9,6 +9,7 @@ import {
   DeviceTabletIcon, // For Tablet
   ArrowUpRightIcon, // For the hover arrow
 } from "@heroicons/react/24/outline";
+import gadgets from "@/data/gadgets.json";
 
 const categories = [
   {
@@ -55,6 +56,12 @@ const categories = [
   },
 ];
 
+const getgadgetcount = (categoryName: string) => {
+  return gadgets.filter(
+    (gadget) => gadget.category.toLowerCase() === categoryName.toLowerCase()
+  ).length;
+};
+
 export default function CategoriesPage() {
   return (
     <section className="min-h-screen bg-[#050505] py-20 px-6">
@@ -87,7 +94,7 @@ export default function CategoriesPage() {
                 {cat.name}
               </h3>
               <p className="text-sm text-gray-500 mt-1 group-hover:text-gray-300">
-                {cat.count}
+                {getgadgetcount(cat.name)} Items
               </p>
             </div>
 
