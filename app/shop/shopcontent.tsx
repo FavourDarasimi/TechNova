@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import GadgetCard from "@/components/GadgetCard";
 import SideBarFilter from "@/components/SideBarFilter";
 import SortDropdown from "@/components/SortDropdown";
@@ -28,6 +28,13 @@ const ShopContent = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search");
+  const categoryQuery = searchParams.get("category");
+
+  useEffect(() => {
+    if (categoryQuery && categories.includes(categoryQuery)) {
+      setActiveCategory(categoryQuery);
+    }
+  }, [categoryQuery]);
 
   const getDayOfYear = () => {
     const now = new Date();

@@ -1,17 +1,39 @@
+"use client";
+
 import Link from "next/link";
 import {
   FaFacebookF,
   FaTwitter,
   FaInstagram,
   FaLinkedinIn,
-  FaCcVisa,
-  FaCcMastercard,
-  FaCcPaypal,
-  FaApplePay,
 } from "react-icons/fa";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const categories = [
+    "All",
+    "Audio",
+    "Camera",
+    "Drone",
+    "Laptop",
+    "Smartphone",
+    "Smartwatch",
+    "Tablet",
+  ];
+  const subscribeToNewsletter = () => {
+    if (email.trim() === "") {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+    toast.success("Thank you for subscribing to our newsletter!");
+  };
   return (
     <footer className="mt-5 bg-[#0a0a0a] border-t border-[#2A2F36] text-gray-300 pt-8 sm:pt-10 lg:pt-12 pb-6 sm:pb-8">
       <div className="w-full px-4 sm:px-6 lg:w-[90%] xl:w-[80%] mx-auto">
@@ -41,12 +63,17 @@ const Footer = () => {
               <div className="relative flex-1">
                 <EnvelopeIcon className="absolute left-3 top-2.5 sm:top-3 h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />
                 <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   type="email"
                   placeholder="Enter your email"
                   className="w-full bg-black border border-[#2A2F36] text-white text-sm sm:text-base py-2 sm:py-2.5 pl-9 sm:pl-10 pr-4 rounded-lg focus:outline-none focus:border-[#3055D4]"
                 />
               </div>
-              <button className="bg-[#3055D4] hover:bg-blue-600 text-white font-medium text-sm sm:text-base py-2 sm:py-2.5 px-5 sm:px-6 rounded-lg transition-colors whitespace-nowrap">
+              <button
+                onClick={subscribeToNewsletter}
+                className="bg-[#3055D4] hover:bg-blue-600 text-white font-medium text-sm sm:text-base py-2 sm:py-2.5 px-5 sm:px-6 rounded-lg transition-colors whitespace-nowrap"
+              >
                 Subscribe
               </button>
             </div>
@@ -61,43 +88,16 @@ const Footer = () => {
               Shop
             </h4>
             <ul className="space-y-3 sm:space-y-4 text-xs sm:text-sm">
-              <li>
-                <Link href="/shop" className="hover:text-[#3055D4] transition">
-                  All Products
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop?category=Smartphone"
-                  className="hover:text-[#3055D4] transition"
-                >
-                  Smartphones
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop?category=Laptop"
-                  className="hover:text-[#3055D4] transition"
-                >
-                  Laptops
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop?category=Audio"
-                  className="hover:text-[#3055D4] transition"
-                >
-                  Audio
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop?category=Gaming"
-                  className="hover:text-[#3055D4] transition"
-                >
-                  Gaming
-                </Link>
-              </li>
+              {categories.map((category) => (
+                <li key={category}>
+                  <Link
+                    href={`/shop?category=${category}`}
+                    className="hover:text-[#3055D4] transition"
+                  >
+                    {category}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -161,12 +161,12 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3 sm:space-y-4 text-xs sm:text-sm text-gray-400">
               <li>
-                123 Tech Avenue,
+                Plot 12, Adetokunbo Ademola Street,
                 <br />
-                Silicon Valley, CA 94000
+                Victoria Island, Lagos 101241
               </li>
               <li>support@technova.com</li>
-              <li>+1 (555) 123-4567</li>
+              <li>+234 706 123 4567</li>
 
               {/* Social Icons */}
               <li className="flex gap-3 sm:gap-4 mt-4 sm:mt-6">
@@ -204,17 +204,10 @@ const Footer = () => {
         </div>
 
         {/* --- BOTTOM SECTION: COPYRIGHT & PAYMENTS --- */}
-        <div className="pt-6 sm:pt-8 border-t border-[#2A2F36] flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4">
-          <p className="text-xs sm:text-sm text-gray-500 text-center md:text-left">
+        <div className="pt-6 sm:pt-8 border-t border-[#2A2F36] flex justify-center items-center">
+          <p className="text-xs sm:text-sm text-gray-500 ">
             &copy; {new Date().getFullYear()} TechNova. All rights reserved.
           </p>
-
-          <div className="flex gap-3 sm:gap-4 text-xl sm:text-2xl text-gray-500">
-            <FaCcVisa className="hover:text-white transition cursor-pointer" />
-            <FaCcMastercard className="hover:text-white transition cursor-pointer" />
-            <FaCcPaypal className="hover:text-white transition cursor-pointer" />
-            <FaApplePay className="hover:text-white transition cursor-pointer" />
-          </div>
         </div>
       </div>
     </footer>
