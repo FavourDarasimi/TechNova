@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     siteName: "TechNova",
     images: [
       {
-        url: "/images/og-image.jpg", // You'll need to create this
+        url: "/og-image.png", // You'll need to create this
         width: 1200,
         height: 630,
         alt: "TechNova - Premium Tech Store",
@@ -66,9 +66,6 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
-  },
-  verification: {
-    google: "your-google-verification-code",
   },
 };
 

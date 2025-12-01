@@ -82,7 +82,7 @@ export default function Home() {
           <Image
             src={hero}
             alt="Hero Section"
-            className="w-full max-w-md lg:max-w-none h-auto lg:h-[600px] rounded-xl object-cover"
+            className="w-full max-w-md lg:max-w-none h-auto lg:h-[600px] rounded-xl object-contain"
           />
         </div>
       </motion.div>

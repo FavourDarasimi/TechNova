@@ -1,4 +1,7 @@
-import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
+import {
+  AdjustmentsHorizontalIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { StarIcon as StarIconOutline } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
@@ -13,6 +16,8 @@ type SideBarFilterProps = {
   setMaxPrice: (value: string) => void;
   minRating: number | null;
   setMinRating: (rating: number | null) => void;
+  onClose?: () => void;
+  resultsCount: number;
 };
 
 const SideBarFilter = ({
@@ -25,6 +30,8 @@ const SideBarFilter = ({
   setMaxPrice,
   minRating,
   setMinRating,
+  onClose,
+  resultsCount,
 }: SideBarFilterProps) => {
   // Helper to toggle rating (if clicked again, unselect it)
   const toggleRating = (rating: number) => {
@@ -40,15 +47,21 @@ const SideBarFilter = ({
       initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.1 }}
-      className="w-full lg:w-1/8"
+      className="w-full lg:w-auto h-full flex flex-col"
     >
-      <div className="sticky top-4 sm:top-20 lg:top-24 space-y-4 sm:space-y-6 lg:space-y-8 px-2 sm:px-0">
-        {/* Mobile Visual Header */}
-        <div className="lg:hidden mb-2 sm:mb-4 flex items-center gap-2 text-[#3055D4]">
-          <AdjustmentsHorizontalIcon className="w-5 h-5 sm:w-6 sm:h-6" />
-          <span className="font-semibold text-sm sm:text-base">
-            Filter Categories
-          </span>
+      <div className="flex-grow overflow-y-auto space-y-4 sm:space-y-6 lg:space-y-4 px-2 sm:px-4 lg:px-0 py-4 lg:py-0">
+        <div className="flex justify-between items-center mb-2 sm:mb-4 text-[#3055D4] lg:hidden">
+          <div className="flex items-center gap-2">
+            <AdjustmentsHorizontalIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+            <span className="font-semibold text-sm sm:text-base">
+              Filter Categories
+            </span>
+          </div>
+          {onClose && (
+            <button onClick={onClose} className="p-1">
+              <XMarkIcon className="w-6 h-6 text-gray-400 hover:text-white" />
+            </button>
+          )}
         </div>
 
         {/* 1. CATEGORIES */}
@@ -170,6 +183,18 @@ const SideBarFilter = ({
           </button>
         )}
       </div>
+
+      {/* Show Results Button for mobile */}
+      {onClose && (
+        <div className="sticky bottom-0 bg-[#1a1d21] p-4 border-t border-[#2A2F36]">
+          <button
+            onClick={onClose}
+            className="w-full bg-[#3055D4] hover:bg-[#2544b8] text-white font-bold py-3 px-4 rounded-lg transition-colors"
+          >
+            Show {resultsCount} Result{resultsCount !== 1 && "s"}
+          </button>
+        </div>
+      )}
     </motion.aside>
   );
 };

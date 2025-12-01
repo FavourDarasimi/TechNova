@@ -25,6 +25,7 @@ const ShopContent = () => {
   const [maxPrice, setMaxPrice] = useState("");
   const [minRating, setMinRating] = useState<number | null>(null);
   const [sortOption, setSortOption] = useState("popularity");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search");
 
@@ -77,6 +78,12 @@ const ShopContent = () => {
     setMinRating(null);
   };
 
+  const animationKey = useMemo(
+    () =>
+      `${activeCategory}-${minPrice}-${maxPrice}-${minRating}-${sortOption}-${searchQuery}`,
+    [activeCategory, minPrice, maxPrice, minRating, sortOption, searchQuery]
+  );
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -102,17 +109,50 @@ const ShopContent = () => {
     <section className="min-h-screen bg-[#050505] text-white py-6 sm:py-8 lg:py-10 px-3 sm:px-4 md:px-6 lg:px-8">
       <div className="max-w-[1920px] mx-auto flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-10">
         {/* Sidebar Filter */}
-        <SideBarFilter
-          categories={categories}
-          activeCategory={activeCategory}
-          setActiveCategory={setActiveCategory}
-          minPrice={minPrice}
-          setMinPrice={setMinPrice}
-          maxPrice={maxPrice}
-          setMaxPrice={setMaxPrice}
-          minRating={minRating}
-          setMinRating={setMinRating}
-        />
+        <div className="hidden lg:block lg:w-1/8">
+          <SideBarFilter
+            categories={categories}
+            activeCategory={activeCategory}
+            setActiveCategory={setActiveCategory}
+            minPrice={minPrice}
+            setMinPrice={setMinPrice}
+            maxPrice={maxPrice}
+            setMaxPrice={setMaxPrice}
+            minRating={minRating}
+            setMinRating={setMinRating}
+            resultsCount={processedGadgets.length}
+          />
+        </div>
+
+        {isFilterOpen && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+            onClick={() => setIsFilterOpen(false)}
+          >
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-y-0 left-0 w-full max-w-xs bg-[#1a1d21] z-50"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <SideBarFilter
+                categories={categories}
+                activeCategory={activeCategory}
+                setActiveCategory={setActiveCategory}
+                minPrice={minPrice}
+                setMinPrice={setMinPrice}
+                maxPrice={maxPrice}
+                setMaxPrice={setMaxPrice}
+                minRating={minRating}
+                setMinRating={setMinRating}
+                onClose={() => setIsFilterOpen(false)}
+                resultsCount={processedGadgets.length}
+              />
+            </motion.div>
+          </div>
+        )}
 
         {/* Main Content */}
         <main className="flex-1 lg:w-0">
@@ -142,7 +182,25 @@ const ShopContent = () => {
               </p>
             </div>
 
-            <div className="w-full sm:w-auto">
+            <div className="flex items-center gap-4 w-full sm:w-auto">
+              <button
+                onClick={() => setIsFilterOpen(true)}
+                className="lg:hidden flex items-center gap-2 bg-[#1a1d21] border border-[#2A2F36] rounded-lg px-4 py-2 text-sm font-medium hover:bg-[#2a2f36] transition-colors"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L13 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 019 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                Filter
+              </button>
               <SortDropdown
                 currentSort={sortOption}
                 onSortChange={setSortOption}
@@ -153,6 +211,7 @@ const ShopContent = () => {
           {/* Products Grid or Empty State */}
           {processedGadgets.length > 0 ? (
             <motion.div
+              key={animationKey}
               className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-5 lg:gap-6"
               variants={containerVariants}
               initial="hidden"

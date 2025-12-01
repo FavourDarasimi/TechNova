@@ -102,7 +102,7 @@ const BestSellingCarousel = () => {
         {bestSellingGadgets.map((gadget) => (
           <motion.div
             key={gadget.id}
-            className="flex-shrink-0 w-[280px] sm:w-[300px] md:w-[320px] lg:w-84"
+            className="flex-shrink-0 w-[250px] sm:w-[280px] md:w-[300px] lg:w-84"
             variants={itemVariants}
           >
             <GadgetCard

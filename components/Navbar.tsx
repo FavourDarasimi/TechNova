@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   ShoppingCartIcon,
   MagnifyingGlassIcon,
@@ -16,6 +16,7 @@ const Navbar = () => {
   const [cartCount, setCartCount] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
+  const navRef = useRef<HTMLDivElement>(null);
 
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchQuery.trim() !== "") {
@@ -52,13 +53,22 @@ const Navbar = () => {
 
   // Close mobile menu when clicking outside or on link
   useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
     if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
       document.body.style.overflow = "hidden";
     } else {
+      document.removeEventListener("mousedown", handleClickOutside);
       document.body.style.overflow = "unset";
     }
 
     return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
       document.body.style.overflow = "unset";
     };
   }, [isOpen]);
@@ -82,6 +92,7 @@ const Navbar = () => {
 
   return (
     <motion.nav
+      ref={navRef}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
@@ -177,66 +188,53 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm md:hidden"
-              onClick={() => setIsOpen(false)}
-            />
-
-            {/* Menu Content */}
-            <motion.div
-              variants={mobileMenuVariants}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              className="md:hidden absolute top-full left-0 right-0 bg-[#0a0a0a] border-b border-[#2A2F36] shadow-xl"
-            >
-              <div className="px-3 sm:px-4 pt-3 sm:pt-4 pb-5 sm:pb-6 space-y-3 sm:space-y-4 max-h-[calc(100vh-3.5rem)] sm:max-h-[calc(100vh-4rem)] overflow-y-auto">
-                {/* Mobile Search */}
-                <div className="relative text-gray-400">
-                  <MagnifyingGlassIcon className="absolute left-3 top-2.5 sm:top-3 h-4 w-4 sm:h-5 sm:w-5" />
-                  <input
-                    type="text"
-                    placeholder="Search gadgets..."
-                    className="w-full bg-[#1a1d21] rounded-lg py-2 sm:py-2.5 pl-9 sm:pl-10 pr-3 text-sm sm:text-base text-white focus:outline-none focus:ring-2 focus:ring-[#3055D4] border border-[#2A2F36] transition-all"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onKeyDown={handleSearch}
-                  />
-                </div>
-
-                {/* Mobile Links */}
-                <Link
-                  href="/shop"
-                  className="block text-gray-300 hover:text-white text-sm sm:text-base font-medium py-2 px-3 rounded-lg hover:bg-[#1a1d21] transition-all"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Shop
-                </Link>
-
-                <Link
-                  href="/cart"
-                  className="flex items-center justify-between text-[#3055D4] hover:text-[#4066e6] font-medium py-2 px-3 rounded-lg hover:bg-[#1a1d21] transition-all text-sm sm:text-base"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <span>View Cart</span>
-                  {cartCount > 0 && (
-                    <span className="bg-[#3055D4] text-white text-xs font-bold px-2 py-0.5 rounded-full">
-                      {cartCount}
-                    </span>
-                  )}
-                </Link>
+          <motion.div
+            variants={mobileMenuVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="md:hidden absolute top-full left-0 right-0 bg-[#0a0a0a] border-b border-[#2A2F36] shadow-xl z-50"
+          >
+            <div className="px-3 sm:px-4 pt-3 sm:pt-4 pb-5 sm:pb-6 space-y-3 sm:space-y-4 max-h-[calc(100vh-3.5rem)] sm:max-h-[calc(100vh-4rem)] overflow-y-auto">
+              {/* Mobile Search */}
+              <div className="relative text-gray-400">
+                <MagnifyingGlassIcon className="absolute left-3 top-2.5 sm:top-3 h-4 w-4 sm:h-5 sm:w-5" />
+                <input
+                  type="text"
+                  placeholder="Search gadgets..."
+                  className="w-full bg-[#1a1d21] rounded-lg py-2 sm:py-2.5 pl-9 sm:pl-10 pr-3 text-sm sm:text-base text-white focus:outline-none focus:ring-2 focus:ring-[#3055D4] border border-[#2A2F36] transition-all"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={handleSearch}
+                />
               </div>
-            </motion.div>
-          </>
+
+              {/* Mobile Links */}
+              <Link
+                href="/shop"
+                className="block text-gray-300 hover:text-white text-sm sm:text-base font-medium py-2 px-3 rounded-lg hover:bg-[#1a1d21] transition-all"
+                onClick={() => setIsOpen(false)}
+              >
+                Shop
+              </Link>
+
+              <Link
+                href="/cart"
+                className="flex items-center justify-between text-[#3055D4] hover:text-[#4066e6] font-medium py-2 px-3 rounded-lg hover:bg-[#1a1d21] transition-all text-sm sm:text-base"
+                onClick={() => setIsOpen(false)}
+              >
+                <span>View Cart</span>
+                {cartCount > 0 && (
+                  <span className="bg-[#3055D4] text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </motion.nav>
   );
 };
-
 export default Navbar;
