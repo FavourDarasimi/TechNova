@@ -18,6 +18,8 @@ type CartItem = {
   imageUrl: string;
   quantity: number;
   category?: string;
+  deal?: boolean;
+  discount?: number;
 };
 
 const CartPage = () => {
@@ -84,12 +86,6 @@ const CartPage = () => {
       <div className="max-w-6xl mx-auto">
         {/* --- HEADER --- */}
         <div className="text-center mb-12 relative">
-          <Link
-            href="/shop"
-            className="absolute left-0 top-1 p-2 text-gray-400 hover:text-white transition hidden md:block"
-          >
-            <ArrowLeftIcon className="w-6 h-6" />
-          </Link>
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
             Your Cart{" "}
             <span className="text-gray-500 text-2xl">
@@ -129,9 +125,9 @@ const CartPage = () => {
                       <h3 className="text-lg font-bold text-white">
                         {item.name}
                       </h3>
-                      {item.category && (
-                        <p className="text-sm text-[#3055D4] font-medium mt-1">
-                          {item.category}
+                      {item.deal && (
+                        <p className="text-sm text-red-500 font-medium mt-1">
+                          Deal of the day
                         </p>
                       )}
                       <p className="text-xs text-gray-500 mt-2">In Stock</p>
@@ -143,7 +139,20 @@ const CartPage = () => {
                     <span className="md:hidden text-gray-500 text-sm mr-2">
                       Price:
                     </span>
-                    ${item.price.toFixed(2)}
+                    {item.deal && item.discount ? (
+                      <div className="flex items-baseline gap-2">
+                        <p className="text-lg font-bold tracking-wide text-red-500">
+                          ${item.price.toFixed(2)}
+                        </p>
+                        <p className="text-md font-light tracking-wide text-gray-400 line-through">
+                          ${(item.price / (1 - item.discount)).toFixed(2)}
+                        </p>
+                      </div>
+                    ) : (
+                      <p className="text-lg font-bold tracking-wide text-white">
+                        ${item.price.toFixed(2)}
+                      </p>
+                    )}
                   </div>
 
                   {/* QUANTITY */}

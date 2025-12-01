@@ -5,6 +5,7 @@ import GadgetCard from "@/components/GadgetCard";
 import SideBarFilter from "@/components/SideBarFilter";
 import SortDropdown from "@/components/SortDropdown";
 import gadgetsData from "@/data/gadgets.json";
+import { useSearchParams } from "next/navigation";
 
 const categories = [
   "All",
@@ -23,7 +24,19 @@ const ShopPage = () => {
   const [maxPrice, setMaxPrice] = useState("");
   const [minRating, setMinRating] = useState<number | null>(null);
   const [sortOption, setSortOption] = useState("popularity");
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("search");
 
+  const getDayOfYear = () => {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0);
+    const diff = now.getTime() - start.getTime();
+    const oneDay = 1000 * 60 * 60 * 24;
+    return Math.floor(diff / oneDay);
+  };
+
+  const dayOfYear = getDayOfYear();
+  const dealGadget = gadgetsData[dayOfYear % gadgetsData.length];
   const processedGadgets = useMemo(() => {
     let result = gadgetsData.filter((gadget) => {
       const categoryMatch =
@@ -35,7 +48,11 @@ const ShopPage = () => {
 
       const ratingMatch = minRating === null || gadget.rating >= minRating;
 
-      return categoryMatch && minMatch && maxMatch && ratingMatch;
+      const searchMatch =
+        !searchQuery ||
+        gadget.name.toLowerCase().includes(searchQuery.toLowerCase());
+
+      return categoryMatch && minMatch && maxMatch && ratingMatch && searchMatch;
     });
 
     result.sort((a, b) => {
@@ -47,7 +64,7 @@ const ShopPage = () => {
     });
 
     return result;
-  }, [activeCategory, minPrice, maxPrice, minRating, sortOption]);
+  }, [activeCategory, minPrice, maxPrice, minRating, sortOption, searchQuery]);
 
   return (
     <section className="min-h-screen bg-[#050505] text-white py-10 px-4 md:px-8">
@@ -95,6 +112,8 @@ const ShopPage = () => {
                   category={gadget.category}
                   imageUrl={gadget.image}
                   new={gadget.new}
+                  deal={gadget.id === dealGadget.id}
+                  discount={0.2}
                 />
               ))}
             </div>

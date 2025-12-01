@@ -7,7 +7,7 @@
     "category": "Smartphone",
     "best_selling": true,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Iphone_14_pro (2).webp"
   },
   {
     "id": 2,
@@ -17,7 +17,7 @@
     "category": "Smartphone",
     "best_selling": true,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Samsung_S23.webp"
   },
   {
     "id": 3,
@@ -27,7 +27,7 @@
     "category": "Smartphone",
     "best_selling": false,
     "new": true,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Google_Pixel_8.webp"
   },
   {
     "id": 4,

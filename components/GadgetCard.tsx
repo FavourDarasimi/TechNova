@@ -18,6 +18,7 @@ type GadgetCardProps = {
   imageUrl: string;
   best_selling?: boolean;
   new?: boolean;
+  deal?: boolean;
   discount?: number;
 };
 
@@ -29,6 +30,7 @@ const GadgetCard = ({
   category,
   imageUrl,
   new: isNew,
+  deal,
   discount,
 }: GadgetCardProps) => {
   const [isAdded, setIsAdded] = useState(false);
@@ -72,13 +74,16 @@ const GadgetCard = ({
         setIsAdded(false);
       } else {
         // If not, add new item
-        cartItems.push({
+        const itemToAdd = {
           id,
           name,
-          price,
+          price: deal && discount ? price - price * discount : price,
           imageUrl,
           quantity: 1,
-        });
+          deal,
+          discount,
+        };
+        cartItems.push(itemToAdd);
         setIsAdded(true);
       }
 
@@ -100,7 +105,7 @@ const GadgetCard = ({
           NEW
         </span>
       )}
-      {discount && (
+      {deal && (
         <span className="absolute top-5 right-5 z-10 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full tracking-wider">
           DEAL OF THE DAY
         </span>
@@ -112,8 +117,8 @@ const GadgetCard = ({
         <Image
           src={imageUrl}
           alt={name}
-          fill // improved: uses fill to cover the container
-          className="object-cover transition-transform duration-500 group-hover:scale-110"
+          fill
+          className="object-contain transition-transform duration-500 group-hover:scale-110"
         />
       </div>
 
@@ -131,9 +136,20 @@ const GadgetCard = ({
       <h3 className="mt-3 text-lg font-medium text-gray-100 truncate">
         {name}
       </h3>
-      <p className="mt-1 text-xl font-bold tracking-wide text-white">
-        ${price}
-      </p>
+      {deal && discount ? (
+        <div className="mt-1 flex items-baseline gap-2">
+          <p className="text-xl font-bold tracking-wide text-red-500">
+            ${(price - price * discount).toFixed(2)}
+          </p>
+          <p className="text-md font-light tracking-wide text-gray-400 line-through">
+            ${price.toFixed(2)}
+          </p>
+        </div>
+      ) : (
+        <p className="mt-1 text-xl font-bold tracking-wide text-white">
+          ${price.toFixed(2)}
+        </p>
+      )}
 
       <div className="mt-5 flex gap-3">
         <Button

@@ -11,10 +11,16 @@ import { FaStar, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { BsArrowUpRight } from "react-icons/bs";
 
 export default function Home() {
-  const dealGadget =
-    gadgets.filter((gadget) => gadget.best_selling)[
-      Math.floor(Math.random() * gadgets.filter((gadget) => gadget.best_selling).length)
-    ];
+  const getDayOfYear = () => {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0);
+    const diff = now.getTime() - start.getTime();
+    const oneDay = 1000 * 60 * 60 * 24;
+    return Math.floor(diff / oneDay);
+  };
+
+  const dayOfYear = getDayOfYear();
+  const dealGadget = gadgets[dayOfYear % gadgets.length];
 
   return (
     <section>

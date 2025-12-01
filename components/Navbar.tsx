@@ -8,10 +8,19 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
+
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && searchQuery.trim() !== "") {
+      router.push(`/shop?search=${searchQuery}`);
+    }
+  };
 
   // --- CART COUNT LOGIC ---
   useEffect(() => {
@@ -68,6 +77,9 @@ const Navbar = () => {
                 type="text"
                 className="block w-full bg-[#1a1d21] border border-[#2A2F36] rounded-full py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:border-[#3055D4] focus:ring-1 focus:ring-[#3055D4] text-white transition-all"
                 placeholder="Search gadgets (e.g. Headphones, PS5)..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleSearch}
               />
             </div>
           </div>
@@ -120,6 +132,9 @@ const Navbar = () => {
                 type="text"
                 placeholder="Search..."
                 className="w-full bg-[#1a1d21] rounded-lg py-2 pl-10 text-white focus:outline-none border border-[#2A2F36]"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleSearch}
               />
             </div>
 

@@ -3,6 +3,16 @@ import GadgetCard from "@/components/GadgetCard";
 import gadgetsData from "@/data/gadgets.json";
 
 const BestSellingPage = () => {
+  const getDayOfYear = () => {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0);
+    const diff = now.getTime() - start.getTime();
+    const oneDay = 1000 * 60 * 60 * 24;
+    return Math.floor(diff / oneDay);
+  };
+
+  const dayOfYear = getDayOfYear();
+  const dealGadget = gadgetsData[dayOfYear % gadgetsData.length];
   const bestSellingGadgets = gadgetsData.filter(
     (gadget) => gadget.best_selling
   );
@@ -24,6 +34,8 @@ const BestSellingPage = () => {
               category={gadget.category}
               imageUrl={gadget.image}
               new={gadget.new}
+              deal={gadget.id === dealGadget.id}
+              discount={0.2}
             />
           ))}
         </div>
