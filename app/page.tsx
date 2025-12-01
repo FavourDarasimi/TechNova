@@ -50,11 +50,29 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="mt-6 sm:mt-8 lg:mt-12 flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-gray-500">
+          <div className="mt-6 sm:mt-8 lg:mt-12  flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-gray-500">
             <div className="flex -space-x-2">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-700 border border-black"></div>
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-600 border border-black"></div>
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-500 border border-black"></div>
+              <Image
+                src="https://i.pravatar.cc/150?img=69"
+                alt="Avatar"
+                width={28}
+                height={28}
+                className="rounded-full"
+              />
+              <Image
+                src="https://i.pravatar.cc/150?img=3"
+                alt="Avatar"
+                width={28}
+                height={28}
+                className="rounded-full"
+              />
+              <Image
+                src="https://i.pravatar.cc/150?img=33"
+                alt="Avatar"
+                width={28}
+                height={28}
+                className="rounded-full"
+              />
             </div>
             <p>Trusted by 2,000+ Tech Enthusiasts</p>
           </div>
