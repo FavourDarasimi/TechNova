@@ -104,7 +104,7 @@ export default function Home() {
         transition={{ duration: 0.5, delay: 0.4 }}
         className="my-12 sm:my-16 lg:my-20 max-w-5xl mx-4 sm:mx-6 lg:mx-auto p-4 sm:p-6 lg:p-8 rounded-2xl shadow-lg border border-[#3055D4]"
       >
-        <div className="flex flex-col lg:flex-row justify-center items-center gap-6 lg:gap-0">
+        <div className="flex  lg:flex-row justify-center items-center gap-6 lg:gap-0">
           <div className="w-full lg:w-1/2 flex justify-center">
             <Image
               src={dealGadget.image}

@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     siteName: "TechNova",
     images: [
       {
-        url: "/og-image.png", // You'll need to create this
+        url: "/images/og-image.png", // You'll need to create this
         width: 1200,
         height: 630,
         alt: "TechNova - Premium Tech Store",
@@ -76,9 +76,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/icon.webp" type="image/webp" />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased text-white`}
       >

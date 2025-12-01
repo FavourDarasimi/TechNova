@@ -6,7 +6,7 @@ import SideBarFilter from "@/components/SideBarFilter";
 import SortDropdown from "@/components/SortDropdown";
 import gadgetsData from "@/data/gadgets.json";
 import { useSearchParams } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const categories = [
   "All",
@@ -126,7 +126,7 @@ const ShopContent = () => {
 
         {isFilterOpen && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
             onClick={() => setIsFilterOpen(false)}
           >
             <motion.div
