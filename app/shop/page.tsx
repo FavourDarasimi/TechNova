@@ -37,6 +37,7 @@ const ShopPage = () => {
 
   const dayOfYear = getDayOfYear();
   const dealGadget = gadgetsData[dayOfYear % gadgetsData.length];
+
   const processedGadgets = useMemo(() => {
     let result = gadgetsData.filter((gadget) => {
       const categoryMatch =
@@ -52,7 +53,9 @@ const ShopPage = () => {
         !searchQuery ||
         gadget.name.toLowerCase().includes(searchQuery.toLowerCase());
 
-      return categoryMatch && minMatch && maxMatch && ratingMatch && searchMatch;
+      return (
+        categoryMatch && minMatch && maxMatch && ratingMatch && searchMatch
+      );
     });
 
     result.sort((a, b) => {
@@ -66,9 +69,17 @@ const ShopPage = () => {
     return result;
   }, [activeCategory, minPrice, maxPrice, minRating, sortOption, searchQuery]);
 
+  const handleClearFilters = () => {
+    setActiveCategory("All");
+    setMinPrice("");
+    setMaxPrice("");
+    setMinRating(null);
+  };
+
   return (
-    <section className="min-h-screen bg-[#050505] text-white py-10 px-4 md:px-8">
-      <div className=" mx-auto flex flex-col lg:flex-row gap-10">
+    <section className="min-h-screen bg-[#050505] text-white py-6 sm:py-8 lg:py-10 px-3 sm:px-4 md:px-6 lg:px-8">
+      <div className="max-w-[1920px] mx-auto flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-10">
+        {/* Sidebar Filter */}
         <SideBarFilter
           categories={categories}
           activeCategory={activeCategory}
@@ -81,18 +92,30 @@ const ShopPage = () => {
           setMinRating={setMinRating}
         />
 
-        <main className="lg:w-7/8">
-          <div className="flex flex-col md:flex-row justify-between items-end md:items-center mb-8 border-b border-[#2A2F36] pb-6">
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight">
+        {/* Main Content */}
+        <main className="flex-1 lg:w-0">
+          {/* Header Section */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 mb-6 sm:mb-8 border-b border-[#2A2F36] pb-4 sm:pb-6">
+            <div className="w-full sm:w-auto">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
                 {activeCategory} Gadgets
               </h1>
-              <p className="text-gray-400 mt-1 text-sm">
-                Showing {processedGadgets.length} results
+              <p className="text-gray-400 mt-1 text-xs sm:text-sm">
+                {searchQuery && (
+                  <span className="inline-block mr-2">
+                    Search:{" "}
+                    <span className="text-[#3055D4] font-medium">
+                      "{searchQuery}"
+                    </span>{" "}
+                    •
+                  </span>
+                )}
+                Showing {processedGadgets.length} result
+                {processedGadgets.length !== 1 && "s"}
               </p>
             </div>
 
-            <div className="mt-4 md:mt-0">
+            <div className="w-full sm:w-auto">
               <SortDropdown
                 currentSort={sortOption}
                 onSortChange={setSortOption}
@@ -100,8 +123,9 @@ const ShopPage = () => {
             </div>
           </div>
 
+          {/* Products Grid or Empty State */}
           {processedGadgets.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-5 lg:gap-6">
               {processedGadgets.map((gadget) => (
                 <GadgetCard
                   key={gadget.id}
@@ -118,18 +142,31 @@ const ShopPage = () => {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center py-20 text-center bg-[#1a1d21] rounded-xl border border-[#2A2F36]">
-              <p className="text-xl text-gray-400 font-medium">
-                No gadgets found matching your filters.
+            <div className="flex flex-col items-center justify-center py-16 sm:py-20 lg:py-24 px-4 text-center bg-[#1a1d21] rounded-xl border border-[#2A2F36]">
+              <svg
+                className="w-16 h-16 sm:w-20 sm:h-20 text-gray-600 mb-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              <p className="text-lg sm:text-xl lg:text-2xl text-gray-300 font-medium mb-2">
+                No gadgets found
+              </p>
+              <p className="text-sm sm:text-base text-gray-500 mb-6 max-w-md">
+                {searchQuery
+                  ? `No results for "${searchQuery}". Try adjusting your search or filters.`
+                  : "No gadgets match your current filters. Try adjusting your criteria."}
               </p>
               <button
-                onClick={() => {
-                  setActiveCategory("All");
-                  setMinPrice("");
-                  setMaxPrice("");
-                  setMinRating(null);
-                }}
-                className="mt-4 text-[#3055D4] hover:text-white underline transition-colors"
+                onClick={handleClearFilters}
+                className="bg-[#3055D4] hover:bg-[#2544b8] text-white font-medium px-5 sm:px-6 py-2 sm:py-2.5 rounded-lg transition-colors text-sm sm:text-base"
               >
                 Clear all filters
               </button>

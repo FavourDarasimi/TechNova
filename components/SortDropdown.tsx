@@ -45,18 +45,20 @@ const SortDropdown = ({ currentSort, onSortChange }: SortDropdownProps) => {
   )?.label;
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       {/* Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 bg-[#1a1d21] border border-[#2A2F36] px-4 py-2.5 rounded-lg text-sm text-gray-300 hover:border-[#3055D4] hover:text-white transition-all min-w-[200px] justify-between"
+        className="flex items-center gap-2 bg-[#1a1d21] border border-[#2A2F36] px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm text-gray-300 hover:border-[#3055D4] hover:text-white transition-all w-full sm:min-w-[200px] md:min-w-[220px] justify-between"
       >
-        <span>
+        <span className="flex items-center gap-1 sm:gap-0 truncate">
           <span className="text-gray-500">Sort by: </span>
-          <span className="font-medium text-white">{currentLabel}</span>
+          <span className="font-medium text-white truncate">
+            {currentLabel}
+          </span>
         </span>
         <ChevronDownIcon
-          className={`w-4 h-4 transition-transform duration-200 ${
+          className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""
           }`}
         />
@@ -64,7 +66,7 @@ const SortDropdown = ({ currentSort, onSortChange }: SortDropdownProps) => {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-60 bg-[#1a1d21] border border-[#2A2F36] rounded-xl shadow-2xl shadow-black/50 z-50 overflow-hidden">
+        <div className="absolute left-0 sm:right-0 sm:left-auto mt-2 w-full sm:w-60 md:w-64 bg-[#1a1d21] border border-[#2A2F36] rounded-xl shadow-2xl shadow-black/50 z-50 overflow-hidden">
           <ul className="py-2">
             {sortOptions.map((option) => {
               const isSelected = currentSort === option.value;
@@ -73,24 +75,24 @@ const SortDropdown = ({ currentSort, onSortChange }: SortDropdownProps) => {
                 <li key={option.value}>
                   <button
                     onClick={() => handleSelect(option.value)}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-sm text-left hover:bg-[#2A2F36]/50 transition-colors"
+                    className="w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left hover:bg-[#2A2F36]/50 transition-colors active:bg-[#2A2F36]"
                   >
                     {/* Radio Circle UI */}
                     <div
-                      className={`flex justify-center items-center w-5 h-5 rounded-full border-2 transition-all ${
+                      className={`flex justify-center items-center w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 transition-all flex-shrink-0 ${
                         isSelected ? "border-[#3055D4]" : "border-gray-500"
                       }`}
                     >
                       {/* Inner Dot */}
                       {isSelected && (
-                        <div className="w-2.5 h-2.5 bg-[#3055D4] rounded-full" />
+                        <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#3055D4] rounded-full" />
                       )}
                     </div>
 
                     <span
-                      className={
+                      className={`truncate ${
                         isSelected ? "text-white font-medium" : "text-gray-400"
-                      }
+                      }`}
                     >
                       {option.label}
                     </span>

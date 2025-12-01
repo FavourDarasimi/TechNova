@@ -23,7 +23,7 @@ type GadgetCardProps = {
 };
 
 const GadgetCard = ({
-  id, // IMPORTANT: We need to destructure ID here to track the item
+  id,
   name,
   rating,
   price,
@@ -35,7 +35,7 @@ const GadgetCard = ({
 }: GadgetCardProps) => {
   const [isAdded, setIsAdded] = useState(false);
 
-  // Check if item is in cart when component mounts (fixes reload issue)
+  // Check if item is in cart when component mounts
   useEffect(() => {
     const checkCartStatus = () => {
       try {
@@ -58,18 +58,16 @@ const GadgetCard = ({
   }, [id]);
 
   const handleToggleCart = () => {
-    // 1. Get the current cart from LocalStorage
     try {
       const storedCart = localStorage.getItem("cart");
       let cartItems = storedCart ? JSON.parse(storedCart) : [];
 
-      // 2. Check if product already exists
       const existingItemIndex = cartItems.findIndex(
         (item: any) => item.id === id
       );
 
       if (existingItemIndex > -1) {
-        // --- LOGIC CHANGE: If exists, REMOVE IT ---
+        // If exists, remove it
         cartItems.splice(existingItemIndex, 1);
         setIsAdded(false);
       } else {
@@ -87,10 +85,7 @@ const GadgetCard = ({
         setIsAdded(true);
       }
 
-      // 3. Save back to LocalStorage
       localStorage.setItem("cart", JSON.stringify(cartItems));
-
-      // 4. Dispatch custom event so Navbar updates immediately
       window.dispatchEvent(new Event("cart-updated"));
     } catch (error) {
       console.error("Error updating cart:", error);
@@ -98,64 +93,72 @@ const GadgetCard = ({
   };
 
   return (
-    <div className="group relative p-3 rounded-2xl border border-[#2A2F36] bg-[#1a1d21] transition-all duration-300 hover:border-[#3055D4] hover:shadow-lg hover:shadow-[#3055D4]/20">
-      {/* "NEW" Badge Logic */}
+    <div className="group relative p-2.5 sm:p-3 lg:p-4 rounded-xl sm:rounded-2xl border border-[#2A2F36] bg-[#1a1d21] transition-all duration-300 hover:border-[#3055D4] hover:shadow-lg hover:shadow-[#3055D4]/20">
+      {/* "NEW" Badge */}
       {isNew && (
-        <span className="absolute top-5 left-5 z-10 bg-[#3055D4] text-white text-[10px] font-bold px-2 py-1 rounded-full tracking-wider">
+        <span className="absolute top-3 sm:top-4 lg:top-5 left-3 sm:left-4 lg:left-5 z-10 bg-[#3055D4] text-white text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full tracking-wider">
           NEW
         </span>
       )}
+
+      {/* "DEAL OF THE DAY" Badge */}
       {deal && (
-        <span className="absolute top-5 right-5 z-10 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full tracking-wider">
-          DEAL OF THE DAY
+        <span className="absolute top-3 sm:top-4 lg:top-5 right-3 sm:right-4 lg:right-5 z-10 bg-red-500 text-white text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full tracking-wider">
+          DEAL
         </span>
       )}
 
       {/* Image Container with Hover Zoom */}
-      <div className="overflow-hidden rounded-xl bg-[#2A2F36] relative h-[250px] w-full">
-        {/* Added fixed height for consistency */}
+      <div className="overflow-hidden rounded-lg sm:rounded-xl bg-[#2A2F36] relative h-[180px] sm:h-[220px] lg:h-[250px] w-full">
         <Image
           src={imageUrl}
           alt={name}
           fill
-          className="object-contain transition-transform duration-500 group-hover:scale-110"
+          className="object-contain transition-transform duration-500 group-hover:scale-110 p-2 sm:p-3"
         />
       </div>
 
-      <div className="mt-5 flex justify-between items-center">
-        <span className="bg-white/10 text-white px-3 py-1 rounded-full text-xs tracking-wide font-medium">
+      {/* Category and Rating */}
+      <div className="mt-3 sm:mt-4 lg:mt-5 flex justify-between items-center gap-2">
+        <span className="bg-white/10 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs tracking-wide font-medium truncate">
           {category}
         </span>
 
-        <div className="flex items-center gap-1 text-yellow-400">
-          <StarIcon className="h-4 w-4" />
-          <p className="text-xs font-semibold text-white">{rating}</p>
+        <div className="flex items-center gap-0.5 sm:gap-1 text-yellow-400 flex-shrink-0">
+          <StarIcon className="h-3 w-3 sm:h-4 sm:w-4" />
+          <p className="text-[10px] sm:text-xs font-semibold text-white">
+            {rating}
+          </p>
         </div>
       </div>
 
-      <h3 className="mt-3 text-lg font-medium text-gray-100 truncate">
+      {/* Product Name */}
+      <h3 className="mt-2 sm:mt-3 text-base sm:text-lg font-medium text-gray-100 truncate">
         {name}
       </h3>
+
+      {/* Price */}
       {deal && discount ? (
-        <div className="mt-1 flex items-baseline gap-2">
-          <p className="text-xl font-bold tracking-wide text-red-500">
+        <div className="mt-1 sm:mt-1.5 flex items-baseline gap-1.5 sm:gap-2">
+          <p className="text-lg sm:text-xl font-bold tracking-wide text-red-500">
             ${(price - price * discount).toFixed(2)}
           </p>
-          <p className="text-md font-light tracking-wide text-gray-400 line-through">
+          <p className="text-sm sm:text-base font-light tracking-wide text-gray-400 line-through">
             ${price.toFixed(2)}
           </p>
         </div>
       ) : (
-        <p className="mt-1 text-xl font-bold tracking-wide text-white">
+        <p className="mt-1 sm:mt-1.5 text-lg sm:text-xl font-bold tracking-wide text-white">
           ${price.toFixed(2)}
         </p>
       )}
 
-      <div className="mt-5 flex gap-3">
+      {/* Action Buttons */}
+      <div className="mt-3 sm:mt-4 lg:mt-5 flex gap-2 sm:gap-3">
         <Button
           type="primary"
           size="medium"
-          className="flex-1 text-sm font-semibold"
+          className="flex-1 text-xs sm:text-sm font-semibold !py-2 sm:!py-2.5"
         >
           Buy Now
         </Button>
@@ -163,7 +166,7 @@ const GadgetCard = ({
         {/* Cart Button with Toggle Logic */}
         <button
           onClick={handleToggleCart}
-          className={`transition-all duration-300 rounded-lg p-3 border border-gray-700 ${
+          className={`transition-all duration-300 rounded-md sm:rounded-lg p-2 sm:p-2.5 lg:p-3 border border-gray-700 flex-shrink-0 ${
             isAdded
               ? "bg-white text-black hover:bg-gray-200"
               : "bg-[#2A2F36] hover:bg-white hover:text-black text-white"
@@ -171,9 +174,9 @@ const GadgetCard = ({
           aria-label={isAdded ? "Remove from Cart" : "Add to Cart"}
         >
           {isAdded ? (
-            <CheckIcon className="h-5 w-5" />
+            <CheckIcon className="h-4 w-4 sm:h-5 sm:w-5" />
           ) : (
-            <ShoppingCartIcon className="h-5 w-5" />
+            <ShoppingCartIcon className="h-4 w-4 sm:h-5 sm:w-5" />
           )}
         </button>
       </div>

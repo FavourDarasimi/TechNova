@@ -1,59 +1,104 @@
-// components/CustomerReviews.tsx
-import React from "react";
+import Image from "next/image";
+import { FaStar } from "react-icons/fa";
 
 const reviews = [
   {
-    name: "John Doe",
+    id: 1,
+    name: "Olivia Harper",
+    role: "Marketing Specialist",
     review:
-      "Blazing fast delivery! I ordered my new laptop and it arrived the next day. The packaging was secure and the product was in perfect condition.",
+      "The noise cancellation on the headphones I bought here is a game changer. It has boosted my focus in the open office tenfold!",
     rating: 5,
+    image: "https://i.pravatar.cc/150?img=32",
   },
   {
-    name: "Jane Smith",
+    id: 2,
+    name: "James Chen",
+    role: "Software Engineer",
     review:
-      "I was a bit skeptical about ordering a high-value item online, but the authenticity of the product was guaranteed. I am very happy with my purchase.",
+      "Finally found a store that stocks the latest mechanical keyboards. The delivery was super fast and the packaging was premium.",
+    rating: 5,
+    image: "https://i.pravatar.cc/150?img=11",
+  },
+  {
+    id: 3,
+    name: "Sarah Jenkins",
+    role: "Digital Artist",
+    review:
+      "I was skeptical about buying a drawing tablet online, but TechNova's customer support guided me to the perfect model. precise and responsive!",
     rating: 4,
+    image: "https://i.pravatar.cc/150?img=5",
   },
   {
-    name: "Peter Jones",
+    id: 4,
+    name: "Marcus Reid",
+    role: "Tech Vlogger",
     review:
-      "Excellent customer service and speedy delivery. I had a question about my order and the support team was very helpful. I will definitely be shopping here again.",
+      "I review gadgets for a living, and this is now my go-to spot for gear. The prices are competitive and the 'Deal of the Day' is legit.",
     rating: 5,
-  },
-  {
-    name: "Alice Williams",
-    review:
-      "The product is 100% authentic and the delivery was incredibly fast. I am very impressed with the service and will recommend it to my friends.",
-    rating: 5,
+    image: "https://i.pravatar.cc/150?img=59",
   },
 ];
 
 const CustomerReviews = () => {
   return (
-    <div className="bg-[#050505] text-white py-20">
-      <div className="container mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-12">What Our Customers Say</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {reviews.map((review, index) => (
+    <div className="bg-[#050505] text-white py-12 sm:py-16 lg:py-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 sm:mb-10 lg:mb-12 text-center">
+          What Our Customers Say
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
+          {reviews.map((review) => (
             <div
-              key={index}
-              className="bg-[#1a1d21] p-8 rounded-xl border border-[#2A2F36]"
+              key={review.id}
+              className="bg-[#1a1d21] p-6 sm:p-7 lg:p-8 rounded-xl sm:rounded-2xl shadow-xl flex flex-col justify-between hover:transform hover:scale-105 transition-transform duration-300"
             >
-              <p className="text-gray-400 mb-4">{review.review}</p>
-              <div className="flex items-center justify-center">
-                <div className="flex items-center">
+              <div>
+                {/* Stars */}
+                <div className="flex gap-1 mb-4 sm:mb-5 lg:mb-6">
                   {[...Array(review.rating)].map((_, i) => (
-                    <svg
+                    <FaStar
                       key={i}
-                      className="w-5 h-5 text-yellow-500"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M10 15l-5.878 3.09 1.123-6.545L.489 7.09l6.572-.955L10 0l2.939 6.135 6.572.955-4.756 4.455 1.123 6.545z" />
-                    </svg>
+                      className="text-white text-base sm:text-lg"
+                    />
+                  ))}
+                  {/* Empty stars for ratings less than 5 */}
+                  {[...Array(5 - review.rating)].map((_, i) => (
+                    <FaStar
+                      key={i}
+                      className="text-gray-600 text-base sm:text-lg"
+                    />
                   ))}
                 </div>
-                <p className="ml-2 text-white font-bold">{review.name}</p>
+
+                {/* Review Text */}
+                <p className="text-white text-sm sm:text-base lg:text-lg font-medium leading-relaxed mb-6 sm:mb-7 lg:mb-8">
+                  "{review.review}"
+                </p>
+              </div>
+
+              {/* User Profile Section */}
+              <div className="flex items-center gap-3 sm:gap-4">
+                {/* User Image */}
+                <div className="relative w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0">
+                  <Image
+                    src={review.image}
+                    alt={review.name}
+                    fill
+                    className="rounded-full object-cover border-2 border-white/20"
+                  />
+                </div>
+
+                {/* Name and Role */}
+                <div className="flex flex-col text-left">
+                  <span className="text-white font-bold text-sm sm:text-base leading-tight">
+                    {review.name}
+                  </span>
+                  <span className="text-purple-200 text-xs sm:text-sm">
+                    {review.role}
+                  </span>
+                </div>
               </div>
             </div>
           ))}

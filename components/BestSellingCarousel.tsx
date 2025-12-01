@@ -30,41 +30,50 @@ const BestSellingCarousel = () => {
   };
 
   return (
-    <div className="relative">
-      <div className="flex items-center justify-between mb-10">
-        {" "}
+    <div className="relative px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 lg:mb-10 gap-4">
         <div className="max-w-xl">
-          <h1 className="text-2xl md:text-3xl font-bold mb-4">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4">
             Best Selling Gadgets
           </h1>
-          <p className="text-gray-400 text-lg">
+          <p className="text-gray-400 text-sm sm:text-base md:text-lg">
             Explore our highest-rated tech selected by thousands of happy
             customers.
           </p>
-        </div>{" "}
-        <div className="flex gap-3">
-          {" "}
+        </div>
+
+        {/* Navigation buttons - hidden on mobile, visible on tablet+ */}
+        <div className="hidden sm:flex gap-2 md:gap-3 flex-shrink-0">
           <button
-            className="  h-fit bg-[#1a1d21] text-white p-3 rounded-full"
-            onClick={() => scroll(-600)}
+            className="bg-[#1a1d21] text-white p-2 md:p-3 rounded-full hover:bg-[#2a2d31] transition-colors"
+            onClick={() => scroll(-400)}
+            aria-label="Scroll left"
           >
-            <FaChevronLeft className="w-5 h-5" />
+            <FaChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
           </button>
           <button
-            className=" h-fit bg-[#1a1d21] text-white p-3 rounded-full"
-            onClick={() => scroll(600)}
+            className="bg-[#1a1d21] text-white p-2 md:p-3 rounded-full hover:bg-[#2a2d31] transition-colors"
+            onClick={() => scroll(400)}
+            aria-label="Scroll right"
           >
-            <FaChevronRight className="w-5 h-5" />
+            <FaChevronRight className="w-4 h-4 md:w-5 md:h-5" />
           </button>
         </div>
       </div>
+
       <div
-        className="flex overflow-x-auto space-x-6 pb-4"
+        className="flex overflow-x-auto space-x-3 sm:space-x-4 md:space-x-6 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0"
         ref={scrollContainerRef}
-        style={{ scrollbarWidth: "none" }}
+        style={{
+          scrollbarWidth: "none",
+          WebkitOverflowScrolling: "touch",
+        }}
       >
         {bestSellingGadgets.map((gadget) => (
-          <div key={gadget.id} className="flex-shrink-0 w-64">
+          <div
+            key={gadget.id}
+            className="flex-shrink-0 w-[280px] sm:w-[300px] md:w-[320px] lg:w-84"
+          >
             <GadgetCard
               id={gadget.id}
               name={gadget.name}
@@ -79,6 +88,11 @@ const BestSellingCarousel = () => {
             />
           </div>
         ))}
+      </div>
+
+      {/* Mobile scroll indicator */}
+      <div className="sm:hidden text-center mt-2 text-xs text-gray-500">
+        Swipe to see more →
       </div>
     </div>
   );

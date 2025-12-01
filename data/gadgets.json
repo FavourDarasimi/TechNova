@@ -37,7 +37,7 @@
     "category": "Smartphone",
     "best_selling": false,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Iphone_13.webp"
   },
   {
     "id": 5,
@@ -47,7 +47,7 @@
     "category": "Smartphone",
     "best_selling": true,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Samsung A54.webp"
   },
 
   {
@@ -58,7 +58,7 @@
     "category": "Tablet",
     "best_selling": true,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/iPad Air 5 (1).webp"
   },
   {
     "id": 7,
@@ -68,7 +68,7 @@
     "category": "Tablet",
     "best_selling": true,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/iPad Pro 12.9.webp"
   },
   {
     "id": 8,
@@ -78,7 +78,7 @@
     "category": "Tablet",
     "best_selling": false,
     "new": true,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Samsung Galaxy Tab S8.webp"
   },
   {
     "id": 9,
@@ -88,7 +88,7 @@
     "category": "Tablet",
     "best_selling": false,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Amazon Fire HD 10.webp"
   },
   {
     "id": 10,
@@ -98,7 +98,7 @@
     "category": "Tablet",
     "best_selling": false,
     "new": true,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Lenovo Tab P1.webp"
   },
 
   {
@@ -109,7 +109,7 @@
     "category": "Laptop",
     "best_selling": true,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/MacBook Air M2.webp"
   },
   {
     "id": 12,
@@ -119,7 +119,7 @@
     "category": "Laptop",
     "best_selling": true,
     "new": true,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/MacBook Pro 14.webp"
   },
   {
     "id": 13,
@@ -129,7 +129,7 @@
     "category": "Laptop",
     "best_selling": false,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Dell XPS 13.webp"
   },
   {
     "id": 14,
@@ -139,7 +139,7 @@
     "category": "Laptop",
     "best_selling": false,
     "new": true,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/HP Spectre x360.webp"
   },
   {
     "id": 15,
@@ -149,7 +149,7 @@
     "category": "Laptop",
     "best_selling": true,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Lenovo ThinkPad X1 Carbon.webp"
   },
 
   {
@@ -160,7 +160,7 @@
     "category": "Smartwatch",
     "best_selling": true,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Apple Watch Series 9.webp"
   },
   {
     "id": 17,
@@ -170,7 +170,7 @@
     "category": "Smartwatch",
     "best_selling": false,
     "new": true,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Samsung Galaxy Watch 6.webp"
   },
   {
     "id": 18,
@@ -180,7 +180,7 @@
     "category": "Smartwatch",
     "best_selling": false,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Fitbit Versa 4.webp"
   },
   {
     "id": 19,
@@ -190,7 +190,7 @@
     "category": "Smartwatch",
     "best_selling": false,
     "new": true,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Amazfit GTR 4.webp"
   },
   {
     "id": 20,
@@ -200,7 +200,7 @@
     "category": "Smartwatch",
     "best_selling": false,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Huawei Watch GT 3.webp"
   },
 
   {
@@ -211,7 +211,7 @@
     "category": "Audio",
     "best_selling": true,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/AirPods Pro 2.webp"
   },
   {
     "id": 22,
@@ -221,7 +221,7 @@
     "category": "Audio",
     "best_selling": true,
     "new": true,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Sony WH-1000XM5.webp"
   },
   {
     "id": 23,
@@ -231,7 +231,7 @@
     "category": "Audio",
     "best_selling": false,
     "new": true,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Samsung Galaxy Buds 2 Pro.webp"
   },
   {
     "id": 24,
@@ -241,7 +241,7 @@
     "category": "Audio",
     "best_selling": false,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/JBL Charge 5.webp"
   },
   {
     "id": 25,
@@ -251,7 +251,7 @@
     "category": "Audio",
     "best_selling": false,
     "new": true,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Beats Studio 3.webp"
   },
 
   {
@@ -262,7 +262,7 @@
     "category": "Camera",
     "best_selling": true,
     "new": true,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/GoPro Hero 12.webp"
   },
   {
     "id": 27,
@@ -272,7 +272,7 @@
     "category": "Camera",
     "best_selling": true,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Sony A7 IV.webp"
   },
   {
     "id": 28,
@@ -282,7 +282,7 @@
     "category": "Camera",
     "best_selling": false,
     "new": false,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/Canon EOS R6.webp"
   },
   {
     "id": 29,
@@ -292,7 +292,7 @@
     "category": "Drone",
     "best_selling": true,
     "new": true,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/DJI Mini 4 Pro.webp"
   },
   {
     "id": 30,
@@ -302,6 +302,6 @@
     "category": "Camera",
     "best_selling": false,
     "new": true,
-    "image": "/gadgets/Iphone_14_pro.webp"
+    "image": "/gadgets/DJI Osmo Pocket 3.webp"
   }
 ]
