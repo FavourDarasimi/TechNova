@@ -3,6 +3,7 @@ import { useRef } from "react";
 import GadgetCard from "@/components/GadgetCard";
 import gadgets from "@/data/gadgets.json";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const BestSellingCarousel = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -29,8 +30,34 @@ const BestSellingCarousel = () => {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
-    <div className="relative px-4 sm:px-6 lg:px-8">
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+      className="relative px-4 sm:px-6 lg:px-8"
+    >
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 lg:mb-10 gap-4">
         <div className="max-w-xl">
           <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4">
@@ -61,18 +88,22 @@ const BestSellingCarousel = () => {
         </div>
       </div>
 
-      <div
+      <motion.div
         className="flex overflow-x-auto space-x-3 sm:space-x-4 md:space-x-6 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0"
         ref={scrollContainerRef}
         style={{
           scrollbarWidth: "none",
           WebkitOverflowScrolling: "touch",
         }}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
       >
         {bestSellingGadgets.map((gadget) => (
-          <div
+          <motion.div
             key={gadget.id}
             className="flex-shrink-0 w-[280px] sm:w-[300px] md:w-[320px] lg:w-84"
+            variants={itemVariants}
           >
             <GadgetCard
               id={gadget.id}
@@ -86,15 +117,15 @@ const BestSellingCarousel = () => {
               deal={gadget.id === dealGadget.id}
               discount={0.2}
             />
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Mobile scroll indicator */}
       <div className="sm:hidden text-center mt-2 text-xs text-gray-500">
         Swipe to see more →
       </div>
-    </div>
+    </motion.div>
   );
 };
 

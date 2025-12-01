@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import { motion, AnimatePresence } from "framer-motion";
 
 type SortDropdownProps = {
   currentSort: string;
@@ -44,6 +45,23 @@ const SortDropdown = ({ currentSort, onSortChange }: SortDropdownProps) => {
     (opt) => opt.value === currentSort
   )?.label;
 
+  const dropdownVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.95,
+      transition: {
+        duration: 0.15,
+      },
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.15,
+      },
+    },
+  };
+
   return (
     <div className="relative w-full sm:w-auto" ref={dropdownRef}>
       {/* Trigger Button */}
@@ -65,44 +83,59 @@ const SortDropdown = ({ currentSort, onSortChange }: SortDropdownProps) => {
       </button>
 
       {/* Dropdown Menu */}
-      {isOpen && (
-        <div className="absolute left-0 sm:right-0 sm:left-auto mt-2 w-full sm:w-60 md:w-64 bg-[#1a1d21] border border-[#2A2F36] rounded-xl shadow-2xl shadow-black/50 z-50 overflow-hidden">
-          <ul className="py-2">
-            {sortOptions.map((option) => {
-              const isSelected = currentSort === option.value;
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            variants={dropdownVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="absolute left-0 sm:right-0 sm:left-auto mt-2 w-full sm:w-60 md:w-64 bg-[#1a1d21] border border-[#2A2F36] rounded-xl shadow-2xl shadow-black/50 z-50 overflow-hidden"
+          >
+            <ul className="py-2">
+              {sortOptions.map((option) => {
+                const isSelected = currentSort === option.value;
 
-              return (
-                <li key={option.value}>
-                  <button
-                    onClick={() => handleSelect(option.value)}
-                    className="w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left hover:bg-[#2A2F36]/50 transition-colors active:bg-[#2A2F36]"
-                  >
-                    {/* Radio Circle UI */}
-                    <div
-                      className={`flex justify-center items-center w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 transition-all flex-shrink-0 ${
-                        isSelected ? "border-[#3055D4]" : "border-gray-500"
-                      }`}
+                return (
+                  <li key={option.value}>
+                    <button
+                      onClick={() => handleSelect(option.value)}
+                      className="w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left hover:bg-[#2A2F36]/50 transition-colors active:bg-[#2A2F36]"
                     >
-                      {/* Inner Dot */}
-                      {isSelected && (
-                        <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#3055D4] rounded-full" />
-                      )}
-                    </div>
+                      {/* Radio Circle UI */}
+                      <div
+                        className={`flex justify-center items-center w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 transition-all flex-shrink-0 ${
+                          isSelected ? "border-[#3055D4]" : "border-gray-500"
+                        }`}
+                      >
+                        {/* Inner Dot */}
+                        {isSelected && (
+                          <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ duration: 0.2 }}
+                            className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#3055D4] rounded-full"
+                          />
+                        )}
+                      </div>
 
-                    <span
-                      className={`truncate ${
-                        isSelected ? "text-white font-medium" : "text-gray-400"
-                      }`}
-                    >
-                      {option.label}
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      )}
+                      <span
+                        className={`truncate ${
+                          isSelected
+                            ? "text-white font-medium"
+                            : "text-gray-400"
+                        }`}
+                      >
+                        {option.label}
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

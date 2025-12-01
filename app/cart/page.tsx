@@ -10,6 +10,7 @@ import {
   ArrowLeftIcon,
 } from "@heroicons/react/24/outline";
 import Button from "@/components/Button";
+import { motion, AnimatePresence } from "framer-motion";
 
 type CartItem = {
   id: number;
@@ -20,6 +21,22 @@ type CartItem = {
   category?: string;
   deal?: boolean;
   discount?: number;
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+  exit: { opacity: 0, x: -50, transition: { duration: 0.3 } },
 };
 
 const CartPage = () => {
@@ -82,7 +99,12 @@ const CartPage = () => {
   }
 
   return (
-    <section className="min-h-screen bg-[#050505] text-white py-6 sm:py-8 md:py-12 px-3 sm:px-4 md:px-8">
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen bg-[#050505] text-white py-6 sm:py-8 md:py-12 px-3 sm:px-4 md:px-8"
+    >
       <div className="max-w-6xl mx-auto">
         {/* --- HEADER --- */}
         <div className="text-center mb-6 sm:mb-8 md:mb-12 relative">
@@ -105,110 +127,119 @@ const CartPage = () => {
             </div>
 
             {/* --- CART ITEMS --- */}
-            <div className="space-y-4 sm:space-y-6 md:space-y-0">
-              {cartItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4 md:gap-6 items-center py-4 sm:py-6 border-b border-[#2A2F36] last:border-0 bg-[#0a0a0a] md:bg-transparent rounded-lg md:rounded-none p-3 sm:p-4 md:p-0"
-                >
-                  {/* ITEM DETAILS */}
-                  <div className="col-span-1 md:col-span-6 flex gap-3 sm:gap-4 md:gap-6">
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-[#1a1d21] rounded-lg relative overflow-hidden flex-shrink-0 border border-[#2A2F36]">
-                      <Image
-                        src={item.imageUrl}
-                        alt={item.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-base sm:text-lg font-bold text-white truncate">
-                        {item.name}
-                      </h3>
-                      {item.deal && (
-                        <p className="text-xs sm:text-sm text-red-500 font-medium mt-1">
-                          Deal of the day
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="space-y-4 sm:space-y-6 md:space-y-0"
+            >
+              <AnimatePresence>
+                {cartItems.map((item) => (
+                  <motion.div
+                    key={item.id}
+                    variants={itemVariants}
+                    exit="exit"
+                    className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4 md:gap-6 items-center py-4 sm:py-6 border-b border-[#2A2F36] last:border-0 bg-[#0a0a0a] md:bg-transparent rounded-lg md:rounded-none p-3 sm:p-4 md:p-0"
+                  >
+                    {/* ITEM DETAILS */}
+                    <div className="col-span-1 md:col-span-6 flex gap-3 sm:gap-4 md:gap-6">
+                      <div className="w-20 h-20 sm:w-24 sm:h-24 bg-[#1a1d21] rounded-lg relative overflow-hidden flex-shrink-0 border border-[#2A2F36]">
+                        <Image
+                          src={item.imageUrl}
+                          alt={item.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-base sm:text-lg font-bold text-white truncate">
+                          {item.name}
+                        </h3>
+                        {item.deal && (
+                          <p className="text-xs sm:text-sm text-red-500 font-medium mt-1">
+                            Deal of the day
+                          </p>
+                        )}
+                        <p className="text-xs text-gray-500 mt-1 sm:mt-2">
+                          In Stock
                         </p>
-                      )}
-                      <p className="text-xs text-gray-500 mt-1 sm:mt-2">
-                        In Stock
-                      </p>
 
-                      {/* Mobile Remove Button */}
-                      <button
-                        onClick={() => removeItem(item.id)}
-                        className="md:hidden text-xs text-gray-500 hover:text-red-500 transition mt-2 flex items-center gap-1"
-                      >
-                        <XMarkIcon className="w-4 h-4" />
-                        Remove
-                      </button>
+                        {/* Mobile Remove Button */}
+                        <button
+                          onClick={() => removeItem(item.id)}
+                          className="md:hidden text-xs text-gray-500 hover:text-red-500 transition mt-2 flex items-center gap-1"
+                        >
+                          <XMarkIcon className="w-4 h-4" />
+                          Remove
+                        </button>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* PRICE */}
-                  <div className="col-span-1 md:col-span-2 md:text-center">
-                    <span className="md:hidden text-gray-500 text-xs sm:text-sm mr-2">
-                      Price:
-                    </span>
-                    {item.deal && item.discount ? (
-                      <div className="inline-flex md:flex md:flex-col items-baseline md:items-center gap-1 sm:gap-2">
-                        <p className="text-base sm:text-lg font-bold tracking-wide text-red-500">
+                    {/* PRICE */}
+                    <div className="col-span-1 md:col-span-2 md:text-center">
+                      <span className="md:hidden text-gray-500 text-xs sm:text-sm mr-2">
+                        Price:
+                      </span>
+                      {item.deal && item.discount ? (
+                        <div className="inline-flex md:flex md:flex-col items-baseline md:items-center gap-1 sm:gap-2">
+                          <p className="text-base sm:text-lg font-bold tracking-wide text-red-500">
+                            ${item.price.toFixed(2)}
+                          </p>
+                          <p className="text-xs sm:text-sm font-light tracking-wide text-gray-400 line-through">
+                            ${(item.price / (1 - item.discount)).toFixed(2)}
+                          </p>
+                        </div>
+                      ) : (
+                        <p className="inline-block text-base sm:text-lg font-bold tracking-wide text-white">
                           ${item.price.toFixed(2)}
                         </p>
-                        <p className="text-xs sm:text-sm font-light tracking-wide text-gray-400 line-through">
-                          ${(item.price / (1 - item.discount)).toFixed(2)}
-                        </p>
+                      )}
+                    </div>
+
+                    {/* QUANTITY */}
+                    <div className="col-span-1 md:col-span-2 flex justify-start md:justify-center">
+                      <div className="flex items-center border border-[#2A2F36] rounded-md bg-[#1a1d21]">
+                        <button
+                          onClick={() => decreaseQuantity(item.id)}
+                          className="px-2 sm:px-3 py-1 sm:py-1.5 hover:text-[#3055D4] transition border-r border-[#2A2F36] active:bg-[#2A2F36]"
+                          aria-label="Decrease quantity"
+                        >
+                          <MinusIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+                        </button>
+                        <span className="w-8 sm:w-10 text-center text-xs sm:text-sm font-medium">
+                          {item.quantity}
+                        </span>
+                        <button
+                          onClick={() => increaseQuantity(item.id)}
+                          className="px-2 sm:px-3 py-1 sm:py-1.5 hover:text-[#3055D4] transition border-l border-[#2A2F36] active:bg-[#2A2F36]"
+                          aria-label="Increase quantity"
+                        >
+                          <PlusIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+                        </button>
                       </div>
-                    ) : (
-                      <p className="inline-block text-base sm:text-lg font-bold tracking-wide text-white">
-                        ${item.price.toFixed(2)}
-                      </p>
-                    )}
-                  </div>
+                    </div>
 
-                  {/* QUANTITY */}
-                  <div className="col-span-1 md:col-span-2 flex justify-start md:justify-center">
-                    <div className="flex items-center border border-[#2A2F36] rounded-md bg-[#1a1d21]">
-                      <button
-                        onClick={() => decreaseQuantity(item.id)}
-                        className="px-2 sm:px-3 py-1 sm:py-1.5 hover:text-[#3055D4] transition border-r border-[#2A2F36] active:bg-[#2A2F36]"
-                        aria-label="Decrease quantity"
-                      >
-                        <MinusIcon className="w-3 h-3 sm:w-4 sm:h-4" />
-                      </button>
-                      <span className="w-8 sm:w-10 text-center text-xs sm:text-sm font-medium">
-                        {item.quantity}
+                    {/* TOTAL & REMOVE */}
+                    <div className="col-span-1 md:col-span-2 flex items-center justify-between md:justify-end gap-3 sm:gap-4">
+                      <span className="md:hidden text-gray-500 text-xs sm:text-sm">
+                        Total:
                       </span>
+                      <div className="font-bold text-base sm:text-lg flex-1 md:flex-none text-right">
+                        ${(item.price * item.quantity).toFixed(2)}
+                      </div>
                       <button
-                        onClick={() => increaseQuantity(item.id)}
-                        className="px-2 sm:px-3 py-1 sm:py-1.5 hover:text-[#3055D4] transition border-l border-[#2A2F36] active:bg-[#2A2F36]"
-                        aria-label="Increase quantity"
+                        onClick={() => removeItem(item.id)}
+                        className="hidden md:block text-gray-500 hover:text-red-500 transition p-1 hover:bg-[#2A2F36] rounded-full"
+                        title="Remove item"
+                        aria-label="Remove item"
                       >
-                        <PlusIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+                        <XMarkIcon className="w-5 h-5" />
                       </button>
                     </div>
-                  </div>
-
-                  {/* TOTAL & REMOVE */}
-                  <div className="col-span-1 md:col-span-2 flex items-center justify-between md:justify-end gap-3 sm:gap-4">
-                    <span className="md:hidden text-gray-500 text-xs sm:text-sm">
-                      Total:
-                    </span>
-                    <div className="font-bold text-base sm:text-lg flex-1 md:flex-none text-right">
-                      ${(item.price * item.quantity).toFixed(2)}
-                    </div>
-                    <button
-                      onClick={() => removeItem(item.id)}
-                      className="hidden md:block text-gray-500 hover:text-red-500 transition p-1 hover:bg-[#2A2F36] rounded-full"
-                      title="Remove item"
-                      aria-label="Remove item"
-                    >
-                      <XMarkIcon className="w-5 h-5" />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
 
             {/* --- SUMMARY SECTION --- */}
             <div className="mt-8 sm:mt-10 md:mt-12 flex flex-col items-stretch md:items-end border-t border-[#2A2F36] pt-6 sm:pt-8">
@@ -260,7 +291,11 @@ const CartPage = () => {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-16 sm:py-20 text-center px-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="flex flex-col items-center justify-center py-16 sm:py-20 text-center px-4"
+          >
             <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">
               Your cart is empty
             </h2>
@@ -272,10 +307,10 @@ const CartPage = () => {
                 Start Shopping
               </Button>
             </Link>
-          </div>
+          </motion.div>
         )}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

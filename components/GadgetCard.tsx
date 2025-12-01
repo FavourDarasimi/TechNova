@@ -8,6 +8,7 @@ import {
   ShoppingCartIcon,
   CheckIcon,
 } from "@heroicons/react/24/solid";
+import { motion } from "framer-motion";
 
 type GadgetCardProps = {
   id: number;
@@ -93,7 +94,7 @@ const GadgetCard = ({
   };
 
   return (
-    <div className="group relative p-2.5 sm:p-3 lg:p-4 rounded-xl sm:rounded-2xl border border-[#2A2F36] bg-[#1a1d21] transition-all duration-300 hover:border-[#3055D4] hover:shadow-lg hover:shadow-[#3055D4]/20">
+    <motion.div className="group relative p-2.5 sm:p-3 lg:p-4 rounded-xl sm:rounded-2xl border border-[#2A2F36] bg-[#1a1d21] transition-all duration-300 hover:border-[#3055D4] hover:shadow-lg hover:shadow-[#3055D4]/20">
       {/* "NEW" Badge */}
       {isNew && (
         <span className="absolute top-3 sm:top-4 lg:top-5 left-3 sm:left-4 lg:left-5 z-10 bg-[#3055D4] text-white text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full tracking-wider">
@@ -154,7 +155,12 @@ const GadgetCard = ({
       )}
 
       {/* Action Buttons */}
-      <div className="mt-3 sm:mt-4 lg:mt-5 flex gap-2 sm:gap-3">
+      <motion.div
+        className="mt-3 sm:mt-4 lg:mt-5 flex gap-2 sm:gap-3"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
+      >
         <Button
           type="primary"
           size="medium"
@@ -179,8 +185,8 @@ const GadgetCard = ({
             <ShoppingCartIcon className="h-4 w-4 sm:h-5 sm:w-5" />
           )}
         </button>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

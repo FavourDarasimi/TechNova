@@ -1,5 +1,7 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import hero from "@/public/images/hero-section.webp";
 import Button from "@/components/Button";
 import gadgets from "@/data/gadgets.json";
@@ -21,7 +23,12 @@ export default function Home() {
   return (
     <section>
       {/* Hero Section */}
-      <div className="flex flex-col-reverse lg:flex-row justify-center items-center bg-linear-to-r from-black to-[#3055D4] px-4 sm:px-6 lg:px-12 py-8 lg:py-12">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="flex flex-col-reverse lg:flex-row justify-center items-center bg-linear-to-r from-black to-[#3055D4] px-4 sm:px-6 lg:px-12 py-8 lg:py-12"
+      >
         <div className="text-white text-left w-full lg:w-1/2 mt-8 lg:mt-0">
           <p className="text-sm sm:text-base md:text-[19px] text-[#3055D4] tracking-widest font-semibold">
             WELCOME TO TECHNOVA
@@ -60,15 +67,25 @@ export default function Home() {
             className="w-full max-w-md lg:max-w-none h-auto lg:h-[600px] rounded-xl object-cover"
           />
         </div>
-      </div>
+      </motion.div>
 
       {/* Best Selling Carousel Section */}
-      <div className="mx-4 sm:mx-6 md:mx-12 lg:mx-20 xl:mx-28 mt-12 sm:mt-16 lg:mt-20">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="mx-4 sm:mx-6 md:mx-12 lg:mx-20 xl:mx-28 mt-12 sm:mt-16 lg:mt-20"
+      >
         <BestSellingCarousel />
-      </div>
+      </motion.div>
 
       {/* Deal of the Day Section */}
-      <div className="my-12 sm:my-16 lg:my-20 max-w-5xl mx-4 sm:mx-6 lg:mx-auto p-4 sm:p-6 lg:p-8 rounded-2xl shadow-lg border border-[#3055D4]">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="my-12 sm:my-16 lg:my-20 max-w-5xl mx-4 sm:mx-6 lg:mx-auto p-4 sm:p-6 lg:p-8 rounded-2xl shadow-lg border border-[#3055D4]"
+      >
         <div className="flex flex-col lg:flex-row justify-center items-center gap-6 lg:gap-0">
           <div className="w-full lg:w-1/2 flex justify-center">
             <Image
@@ -118,10 +135,16 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Customer Reviews Section */}
-      <CustomerReviews />
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+      >
+        <CustomerReviews />
+      </motion.div>
     </section>
   );
 }

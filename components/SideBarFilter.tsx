@@ -1,8 +1,7 @@
-"use client";
-
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { StarIcon as StarIconOutline } from "@heroicons/react/24/outline";
+import { motion } from "framer-motion";
 
 type SideBarFilterProps = {
   categories: string[];
@@ -37,7 +36,12 @@ const SideBarFilter = ({
   };
 
   return (
-    <aside className="w-full lg:w-1/4 xl:w-1/5">
+    <motion.aside
+      initial={{ opacity: 0, x: -50 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5, delay: 0.1 }}
+      className="w-full lg:w-1/8"
+    >
       <div className="sticky top-4 sm:top-20 lg:top-24 space-y-4 sm:space-y-6 lg:space-y-8 px-2 sm:px-0">
         {/* Mobile Visual Header */}
         <div className="lg:hidden mb-2 sm:mb-4 flex items-center gap-2 text-[#3055D4]">
@@ -48,7 +52,7 @@ const SideBarFilter = ({
         </div>
 
         {/* 1. CATEGORIES */}
-        <div className="bg-[#1a1d21] border border-[#2A2F36] rounded-lg sm:rounded-xl p-4 sm:p-5 lg:p-6">
+        <div className="bg-[#1a1d21] border border-[#2A2F36] rounded-lg sm:rounded-xl p-4 sm:p-5 lg:p-6 ">
           <h3 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">
             Categories
           </h3>
@@ -166,7 +170,7 @@ const SideBarFilter = ({
           </button>
         )}
       </div>
-    </aside>
+    </motion.aside>
   );
 };
 

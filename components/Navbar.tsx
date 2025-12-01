@@ -9,6 +9,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,8 +63,30 @@ const Navbar = () => {
     };
   }, [isOpen]);
 
+  const mobileMenuVariants = {
+    hidden: {
+      opacity: 0,
+      y: -20,
+      transition: {
+        duration: 0.2,
+      },
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
+
   return (
-    <nav className="sticky top-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-[#2A2F36]">
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="sticky top-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-[#2A2F36]"
+    >
       <div className="mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
           {/* Logo */}
@@ -152,56 +175,67 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm md:hidden"
-            onClick={() => setIsOpen(false)}
-          />
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm md:hidden"
+              onClick={() => setIsOpen(false)}
+            />
 
-          {/* Menu Content */}
-          <div className="md:hidden absolute top-full left-0 right-0 bg-[#0a0a0a] border-b border-[#2A2F36] shadow-xl">
-            <div className="px-3 sm:px-4 pt-3 sm:pt-4 pb-5 sm:pb-6 space-y-3 sm:space-y-4 max-h-[calc(100vh-3.5rem)] sm:max-h-[calc(100vh-4rem)] overflow-y-auto">
-              {/* Mobile Search */}
-              <div className="relative text-gray-400">
-                <MagnifyingGlassIcon className="absolute left-3 top-2.5 sm:top-3 h-4 w-4 sm:h-5 sm:w-5" />
-                <input
-                  type="text"
-                  placeholder="Search gadgets..."
-                  className="w-full bg-[#1a1d21] rounded-lg py-2 sm:py-2.5 pl-9 sm:pl-10 pr-3 text-sm sm:text-base text-white focus:outline-none focus:ring-2 focus:ring-[#3055D4] border border-[#2A2F36] transition-all"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={handleSearch}
-                />
+            {/* Menu Content */}
+            <motion.div
+              variants={mobileMenuVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              className="md:hidden absolute top-full left-0 right-0 bg-[#0a0a0a] border-b border-[#2A2F36] shadow-xl"
+            >
+              <div className="px-3 sm:px-4 pt-3 sm:pt-4 pb-5 sm:pb-6 space-y-3 sm:space-y-4 max-h-[calc(100vh-3.5rem)] sm:max-h-[calc(100vh-4rem)] overflow-y-auto">
+                {/* Mobile Search */}
+                <div className="relative text-gray-400">
+                  <MagnifyingGlassIcon className="absolute left-3 top-2.5 sm:top-3 h-4 w-4 sm:h-5 sm:w-5" />
+                  <input
+                    type="text"
+                    placeholder="Search gadgets..."
+                    className="w-full bg-[#1a1d21] rounded-lg py-2 sm:py-2.5 pl-9 sm:pl-10 pr-3 text-sm sm:text-base text-white focus:outline-none focus:ring-2 focus:ring-[#3055D4] border border-[#2A2F36] transition-all"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyDown={handleSearch}
+                  />
+                </div>
+
+                {/* Mobile Links */}
+                <Link
+                  href="/shop"
+                  className="block text-gray-300 hover:text-white text-sm sm:text-base font-medium py-2 px-3 rounded-lg hover:bg-[#1a1d21] transition-all"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Shop
+                </Link>
+
+                <Link
+                  href="/cart"
+                  className="flex items-center justify-between text-[#3055D4] hover:text-[#4066e6] font-medium py-2 px-3 rounded-lg hover:bg-[#1a1d21] transition-all text-sm sm:text-base"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span>View Cart</span>
+                  {cartCount > 0 && (
+                    <span className="bg-[#3055D4] text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                      {cartCount}
+                    </span>
+                  )}
+                </Link>
               </div>
-
-              {/* Mobile Links */}
-              <Link
-                href="/shop"
-                className="block text-gray-300 hover:text-white text-sm sm:text-base font-medium py-2 px-3 rounded-lg hover:bg-[#1a1d21] transition-all"
-                onClick={() => setIsOpen(false)}
-              >
-                Shop
-              </Link>
-
-              <Link
-                href="/cart"
-                className="flex items-center justify-between text-[#3055D4] hover:text-[#4066e6] font-medium py-2 px-3 rounded-lg hover:bg-[#1a1d21] transition-all text-sm sm:text-base"
-                onClick={() => setIsOpen(false)}
-              >
-                <span>View Cart</span>
-                {cartCount > 0 && (
-                  <span className="bg-[#3055D4] text-white text-xs font-bold px-2 py-0.5 rounded-full">
-                    {cartCount}
-                  </span>
-                )}
-              </Link>
-            </div>
-          </div>
-        </>
-      )}
-    </nav>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };
 

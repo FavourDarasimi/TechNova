@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "framer-motion";
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -40,9 +41,14 @@ const Button = ({
   const buttonClasses = `${baseStyles} ${sizeStyles[size]} ${typeStyles[type]} ${className}`;
 
   return (
-    <button onClick={onClick} className={buttonClasses}>
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={onClick}
+      className={buttonClasses}
+    >
       {children}
-    </button>
+    </motion.button>
   );
 };
 
